@@ -1,0 +1,9 @@
+source 'https://supermarket.chef.io'
+
+metadata
+cookbook 'nodejs', '~> 3.0.0'
+cookbook 'npm'
+
+cookbook 'redis', '~> 3.0.4'
+
+

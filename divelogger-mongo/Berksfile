@@ -1,0 +1,9 @@
+source 'https://supermarket.chef.io'
+
+metadata
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'git'
+cookbook 'mongodb'
+cookbook 'cloudcli', '~> 1.2.0'
