@@ -12,3 +12,9 @@
 
 
 .idea/workspace.xml
+
+divelogger-app/test/integration/data_bags/settings/env.json
+
+divelogger-mongo/test/integration/data_bags/settings/env.json
+
+.idea/misc.xml

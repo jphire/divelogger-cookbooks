@@ -1,5 +1,5 @@
 name 'divelogger-app'
-maintainer 'The Authors'
+maintainer 'Janne Laukkanen'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures divelogger-app'
@@ -18,4 +18,11 @@ chef_version '>= 12.1' if respond_to?(:chef_version)
 # a Supermarket.
 #
 # source_url 'https://github.com/<insert_org_here>/divelogger-app'
-depends "nodejs"
+depends 'apt'
+depends 'build-essential'
+depends 'monit-ng'
+depends 'nodejs'
+depends 'redisio'
+depends 'cloudcli'
+depends 'logrotate'
+depends 'certbot'

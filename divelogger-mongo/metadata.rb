@@ -20,6 +20,6 @@ chef_version '>= 12.1' if respond_to?(:chef_version)
 # source_url 'https://github.com/<insert_org_here>/divelogger-mongo'
 depends 'apt'
 depends 'build-essential'
-depends 'git'
-depends 'mongodb'
+depends 'monit-ng'
+depends 'sc-mongodb'
 depends 'cloudcli'

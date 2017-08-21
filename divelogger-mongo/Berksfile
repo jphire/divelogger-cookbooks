@@ -2,8 +2,8 @@ source 'https://supermarket.chef.io'
 
 metadata
 
-cookbook 'apt'
-cookbook 'build-essential'
-cookbook 'git'
-cookbook 'mongodb'
+cookbook 'apt', '~>6.1.0'
+cookbook 'build-essential', '~>8.0.3'
+cookbook 'monit-ng', '~> 2.4.0'
+cookbook 'sc-mongodb', '~> 1.0.0'
 cookbook 'cloudcli', '~> 1.2.0'
