@@ -11,25 +11,22 @@ include_recipe 'build-essential'
 include_recipe 'sc-mongodb::default'
 include_recipe 'cloudcli'
 
-# Search item from data bags
-settings = search(:settings, "id:env").first
-Chef::Log.info("********** ENVIRONMENT: '#{settings['env']}' **********")
+settings = node.default['divelogger']['settings']
 
-if settings['env']
-  Chef::Log.info("********** ENVIRONMENT: '#{settings['env']}' **********")
-else
-  # Search from aws data bags
-  app = search("aws_opsworks_app").first
-  settings = app['environment']
-
-  if not settings['env']
-    Chef::Log.info("********** ENVIRONMENT: Not found **********")
-    raise "Cannot find environment info, aborting.."
-  end
+if node['env'] == 'development'
+  # Get credentials from local data bags
+  credentials = search(:settings, "id:env").first
+  settings['access_key_id'] = credentials['access_key_id']
+  settings['secret_access_key'] = credentials['secret_access_key']
+  Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
+elsif ['test', 'staging', 'production'].include? node['env']
+  # Search credentials from aws data bags
+  stack = search(:aws_opsworks_stack).first
+  settings['access_key_id'] = stack['custom_cookbooks_source']['username']
+  settings['secret_access_key'] = stack['custom_cookbooks_source']['password']
 end
 
-
-if ['development', 'test', 'staging'].include? settings['env']
+if ['development', 'test', 'staging'].include? node['env']
 
   cloudcli_aws_s3_file "/home/#{settings['username']}/mongo-backup.tar.gz" do
     aws_access_key_id settings['access_key_id']

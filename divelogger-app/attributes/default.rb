@@ -1,6 +1,15 @@
 
 default['env'] = 'development'
 
+default['divelogger'] = {}
+default['divelogger']['settings'].tap do |conf|
+  conf['region'] =  'eu-west-1'
+  conf['username'] = 'vagrant'
+  conf['port'] = 3001
+  conf['username'] = 'vagrant'
+  conf['https'] = false
+end
+
 # Monit configuration attributes
 default['monit']['config'].tap do |conf|
 

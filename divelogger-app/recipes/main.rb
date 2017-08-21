@@ -1,16 +1,18 @@
 extend Helper::Utils
 
-settings = Helper::Utils.get_settings
-
-ENV['NODE_ENV'] = settings['env']
+def_settings = node.default['divelogger']['settings']
 
 valid_envs = ['development', 'staging', 'test', 'production']
 
-if valid_envs.include? settings['env']
-  Chef::Log.info("********** ENVIRONMENT: '#{settings}' **********")
+if valid_envs.include? node['env']
+  Chef::Log.info("********** ENVIRONMENT: '#{def_settings}' **********")
 else
   raise 'No valid environment specified'
 end
+
+settings = Helper::Utils.get_settings(node['env'], def_settings)
+
+ENV['NODE_ENV'] = node['env']
 
 # Create app user
 user 'www' do
@@ -48,7 +50,7 @@ bash 'setup-node' do
   code <<-EOH
     cd divelogger
     touch .env
-    echo "NODE_ENV=#{settings['env']}" >>.env
+    echo "NODE_ENV=#{node['env']}" >>.env
     echo "NODE_PORT=#{settings['port']}" >>.env
     echo "NODE_HTTPS=#{settings['https']}" >>.env
     echo "mongo_host=#{settings['mongo_host']}" >>.env
