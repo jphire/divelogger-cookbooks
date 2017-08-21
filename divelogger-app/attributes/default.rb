@@ -22,7 +22,6 @@ default['monit']['config'].tap do |conf|
   conf['log_file'] = '/var/log/monit.log'
   conf['pid_file'] = '/var/run/monit.pid'
 
-
   # what port to bind to
   conf['port'] = 2812
 

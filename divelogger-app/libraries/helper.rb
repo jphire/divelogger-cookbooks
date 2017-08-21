@@ -17,8 +17,10 @@ module Helper
         end
 
         Chef::Search::Query.new.search(:aws_opsworks_instance).each do |instance|
-          if instance['layer_ids'].include? '551cd4f5-d48b-437f-87bb-f82f231d391c'
-            settings['mongo_host'] = instance['private_ip']
+          instance['layer_ids'].each do |id|
+            if id == settings['mongo_layer_id']
+              settings['mongo_host'] = instance['private_ip']
+            end
           end
         end
       end
