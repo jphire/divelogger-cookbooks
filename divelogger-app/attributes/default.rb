@@ -6,7 +6,6 @@ default['divelogger']['settings'].tap do |conf|
   conf['region'] =  'eu-west-1'
   conf['username'] = 'vagrant'
   conf['port'] = 3001
-  conf['username'] = 'vagrant'
   conf['https'] = false
 end
 
