@@ -16,7 +16,7 @@ module Helper
           settings['secret_access_key'] = conf['custom_cookbooks_source']['password']
         end
 
-        Chef::Search::Query.new.search(:aws_opsworks_instance).each do |instance|
+        Chef::Search::Query.new.search(:aws_opsworks_instance) do |instance|
           instance['layer_ids'].each do |id|
             if id == settings['mongo_layer_id']
               settings['mongo_host'] = instance['private_ip']

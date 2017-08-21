@@ -5,7 +5,7 @@ def_settings = node.default['divelogger']['settings']
 valid_envs = ['development', 'staging', 'test', 'production']
 
 if valid_envs.include? node['env']
-  Chef::Log.info("********** ENVIRONMENT: '#{def_settings}' **********")
+  Chef::Log.info("********** ENVIRONMENT: '#{node}' **********")
 else
   raise 'No valid environment specified'
 end
