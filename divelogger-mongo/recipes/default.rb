@@ -12,13 +12,13 @@ include_recipe 'sc-mongodb::default'
 include_recipe 'cloudcli'
 
 settings = node.default['divelogger']['settings']
+Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
 
 if node['env'] == 'development'
   # Get credentials from local data bags
   credentials = search(:settings, 'id:env').first
   settings['access_key_id'] = credentials['access_key_id']
   settings['secret_access_key'] = credentials['secret_access_key']
-  Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
 elsif ['test', 'staging', 'production'].include? node['env']
   # Search credentials from aws data bags
   stack = search(:aws_opsworks_stack).first

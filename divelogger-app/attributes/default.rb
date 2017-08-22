@@ -8,6 +8,7 @@ default['divelogger']['settings'].tap do |conf|
   conf['port'] = 3001
   conf['https'] = false
   conf['cors'] = 'http://localhost:9000'
+  conf['client_host'] = 'http://localhost:9000'
 end
 
 # Monit configuration attributes

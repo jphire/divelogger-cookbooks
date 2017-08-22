@@ -2,12 +2,12 @@ extend Helper::Utils
 
 def_settings = node.default['divelogger']['settings']
 ext_settings = node['divelogger']['settings']
-req_settings = ['cors', 'port', 'username', 'region', 'https']
+req_settings = ['cors', 'port', 'username', 'region', 'https', 'client_host']
 
 valid_envs = ['development', 'staging', 'test', 'production']
 
 if valid_envs.include? node['env']
-  Chef::Log.info("********** ENVIRONMENT: '#{ext_settings}' **********")
+  Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
 else
   raise 'No valid environment specified'
 end
@@ -59,9 +59,10 @@ bash 'setup-node' do
     echo "api_port=#{settings['port']}" >>.env
     echo "cors=#{settings['cors']}" >>.env
     echo "secretToken=#{settings['secretToken']}" >>.env
+    echo "client_host=#{settings['client_host']}" >>.env
     touch start.sh
     echo "#!/bin/bash" >start.sh
-    echo "cd /srv/www/divelogger ; source /srv/www/divelogger/.env ; /usr/bin/env PORT=#{settings['port']} NODE_PATH=/srv/www/divelogger/node_modules:/srv/www/divelogger /usr/local/bin/node /srv/www/divelogger/server.js 2>>/srv/www/divelogger/log/node.stderr.log 1>>/srv/www/divelogger/log/node.stdout.log" >>start.sh
+    echo "/bin/bash -c 'cd /srv/www/divelogger ; source /srv/www/divelogger/.env ; /usr/bin/env PORT=#{settings['port']} NODE_PATH=/srv/www/divelogger/node_modules:/srv/www/divelogger /usr/local/bin/node /srv/www/divelogger/server.js 2>>/srv/www/divelogger/log/node.stderr.log 1>>/srv/www/divelogger/log/node.stdout.log'" >>start.sh
     chmod +x start.sh
   EOH
 end
