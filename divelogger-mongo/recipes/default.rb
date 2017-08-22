@@ -4,7 +4,7 @@
 #
 # Copyright:: 2017, Janne Laukkanen, All Rights Reserved.
 
-raise 'Only Ubuntu OS supported' if node['platform'] != "ubuntu"
+raise 'Only Ubuntu OS supported' if node['platform'] != 'ubuntu'
 
 include_recipe 'apt'
 include_recipe 'build-essential'
@@ -15,7 +15,7 @@ settings = node.default['divelogger']['settings']
 
 if node['env'] == 'development'
   # Get credentials from local data bags
-  credentials = search(:settings, "id:env").first
+  credentials = search(:settings, 'id:env').first
   settings['access_key_id'] = credentials['access_key_id']
   settings['secret_access_key'] = credentials['secret_access_key']
   Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
@@ -46,5 +46,5 @@ if ['development', 'test', 'staging'].include? node['env']
     EOH
   end
 else
-  raise "No valid environment specified."
+  raise 'No valid environment specified.'
 end

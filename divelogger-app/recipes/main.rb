@@ -1,16 +1,18 @@
 extend Helper::Utils
 
 def_settings = node.default['divelogger']['settings']
+ext_settings = node['divelogger']['settings']
+req_settings = ['cors', 'port', 'username', 'region', 'https']
 
 valid_envs = ['development', 'staging', 'test', 'production']
 
 if valid_envs.include? node['env']
-  Chef::Log.info("********** ENVIRONMENT: '#{node}' **********")
+  Chef::Log.info("********** ENVIRONMENT: '#{ext_settings}' **********")
 else
   raise 'No valid environment specified'
 end
 
-settings = Helper::Utils.get_settings(node['env'], def_settings)
+settings = Helper::Utils.get_settings(node['env'], def_settings, ext_settings, req_settings)
 
 ENV['NODE_ENV'] = node['env']
 
@@ -50,10 +52,12 @@ bash 'setup-node' do
   code <<-EOH
     cd divelogger
     touch .env
-    echo "NODE_ENV=#{node['env']}" >>.env
+    echo "NODE_ENV=#{node['env']}" >.env
     echo "NODE_PORT=#{settings['port']}" >>.env
     echo "NODE_HTTPS=#{settings['https']}" >>.env
     echo "mongo_host=#{settings['mongo_host']}" >>.env
+    echo "api_port=#{settings['port']}" >>.env
+    echo "cors=#{settings['cors']}" >>.env
     echo "secretToken=#{settings['secretToken']}" >>.env
     touch start.sh
     echo "#!/bin/bash" >start.sh

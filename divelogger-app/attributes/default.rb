@@ -7,6 +7,7 @@ default['divelogger']['settings'].tap do |conf|
   conf['username'] = 'vagrant'
   conf['port'] = 3001
   conf['https'] = false
+  conf['cors'] = 'http://localhost:9000'
 end
 
 # Monit configuration attributes
