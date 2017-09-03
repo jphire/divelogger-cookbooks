@@ -18,6 +18,10 @@ platforms:
 
 suites:
   - name: default
+    driver:
+      network:
+        - ['forwarded_port', {guest: 27017, host: 9017}]
+        - ['private_network', {ip: '192.168.33.32'}]
     data_bags_path: "test/integration/data_bags"
     run_list:
       - recipe[divelogger-mongo::default]

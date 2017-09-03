@@ -2,4 +2,6 @@
 
 berks package cookbooks.tar.gz
 
-aws s3 cp ./cookbooks.tar.gz s3://divelogger-cookbooks/
+aws s3 cp ./cookbooks.tar.gz s3://divelogger-cookbooks/test/
+
+rm cookbooks.tar.gz

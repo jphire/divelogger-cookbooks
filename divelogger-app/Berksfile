@@ -1,9 +1,13 @@
 source 'https://supermarket.chef.io'
 
 metadata
+cookbook 'apt', '~>6.1.0'
+cookbook 'build-essential', '~>8.0.3'
+cookbook 'monit-ng', '~> 2.4.0'
 cookbook 'nodejs', '~> 3.0.0'
-cookbook 'npm'
-
-cookbook 'redis', '~> 3.0.4'
+cookbook 'redisio', '~> 2.6.1'
+cookbook 'cloudcli', '~> 1.2.0'
+cookbook 'logrotate', '~> 2.2.0'
+cookbook 'certbot', '~> 0.1.0'
 
 
