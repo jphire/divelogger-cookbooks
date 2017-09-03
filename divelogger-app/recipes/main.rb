@@ -28,7 +28,7 @@ cloudcli_aws_s3_file '/srv/www/divelogger.zip' do
   aws_secret_access_key settings['secret_access_key']
   region settings['region']
   bucket 'divelogger-code'
-  key 'dist/divelogger.zip'
+  key "#{node['env']}/divelogger.zip"
 end
 
 # Install application
@@ -81,7 +81,7 @@ monit_check 'divelogger' do
   stop "/usr/bin/pkill -f 'node /srv/www/divelogger/server.js'"
   tests [
       {
-          'condition' => 'failed port 3001 protocol HTTP request / with timeout 10 seconds',
+          'condition' => "failed port #{settings['port']} protocol HTTP request / with timeout 10 seconds",
           'action'    => 'restart'
       }
   ]

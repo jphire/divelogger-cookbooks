@@ -26,7 +26,7 @@ elsif ['test', 'staging', 'production'].include? node['env']
   settings['secret_access_key'] = stack['custom_cookbooks_source']['password']
 end
 
-if ['development', 'test', 'staging'].include? node['env']
+if ['development', 'test', 'staging', 'production'].include? node['env']
 
   cloudcli_aws_s3_file "/home/#{settings['username']}/mongo-backup.tar.gz" do
     aws_access_key_id settings['access_key_id']
