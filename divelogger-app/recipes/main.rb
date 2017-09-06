@@ -93,7 +93,7 @@ logrotate_app 'node-divelogger' do
   options   ['missingok', 'delaycompress', 'notifempty', 'sharedscripts']
   frequency 'daily'
   rotate    30
-  create    '644 root adm'
+  create    '644 www www'
 end
 
 # Install certs only in production!
