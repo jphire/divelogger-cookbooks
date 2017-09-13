@@ -36,6 +36,7 @@ bash 'setup-server' do
   cwd '/srv/www'
   user 'root'
   code <<-EOH
+    rm -r divelogger
     unzip divelogger.zip -d divelogger
     cd divelogger
     mkdir log
@@ -95,9 +96,6 @@ logrotate_app 'node-divelogger' do
   rotate    30
   create    '644 www www'
 end
-
-# Install certs only in production!
-# include_recipe "#{cookbook_name}::certbot"
 
 # Redis monit configuration
 # monit_check 'redis' do

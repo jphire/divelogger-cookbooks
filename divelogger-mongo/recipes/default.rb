@@ -14,6 +14,7 @@ include_recipe 'cloudcli'
 settings = node.default['divelogger']['settings']
 Chef::Log.info("********** ENVIRONMENT: '#{node['env']}' **********")
 
+# Set credentials
 if node['env'] == 'development'
   # Get credentials from local data bags
   credentials = search(:settings, 'id:env').first
@@ -26,6 +27,7 @@ elsif ['test', 'staging', 'production'].include? node['env']
   settings['secret_access_key'] = stack['custom_cookbooks_source']['password']
 end
 
+# Fetch data from database backup
 if ['development', 'test', 'staging', 'production'].include? node['env']
 
   cloudcli_aws_s3_file "/home/#{settings['username']}/mongo-backup.tar.gz" do
@@ -48,3 +50,7 @@ if ['development', 'test', 'staging', 'production'].include? node['env']
 else
   raise 'No valid environment specified.'
 end
+
+# TODO: Add mongo-backup script
+
+# TODO: Add cronjob to run backup script when needed, IN PRODUCTION ONLY!!!
