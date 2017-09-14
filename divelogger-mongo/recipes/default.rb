@@ -28,7 +28,7 @@ elsif ['test', 'staging', 'production'].include? node['env']
 end
 
 # Fetch data from database backup
-if ['development', 'test', 'staging', 'production'].include? node['env']
+if ['development', 'test', 'staging'].include? node['env']
 
   cloudcli_aws_s3_file "/home/#{settings['username']}/mongo-backup.tar.gz" do
     aws_access_key_id settings['access_key_id']
@@ -51,6 +51,8 @@ else
   raise 'No valid environment specified.'
 end
 
-# TODO: Add mongo-backup script
+# TODO: Add mongo-backup script, IN PRODUCTION ONLY!!!
+#if ['development', 'test', 'staging'].include? node['env']
+#end
 
 # TODO: Add cronjob to run backup script when needed, IN PRODUCTION ONLY!!!
