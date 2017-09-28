@@ -42,6 +42,7 @@ bash 'setup-server' do
     mkdir log
     npm install
     cd ..
+    chown -R www:www /var/log/node/
     chown -R www:www divelogger/
   EOH
 end
@@ -90,10 +91,11 @@ end
 
 # Configure log rotation
 logrotate_app 'node-divelogger' do
-  path      ['/srv/www/divelogger/log/node.stderr.log', '/srv/www/divelogger/log/node.stdout.log']
-  options   ['missingok', 'delaycompress', 'notifempty', 'sharedscripts']
-  frequency 'daily'
-  rotate    30
+  path      ['/var/log/node/node.stderr.log', '/var/log/node/node.stdout.log']
+  options   ['missingok', 'delaycompress', 'notifempty', 'sharedscripts', 'copytruncate']
+  frequency 'weekly'
+  rotate    4
+  size      '100M'
   create    '644 www www'
 end
 
