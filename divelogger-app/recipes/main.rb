@@ -42,6 +42,7 @@ bash 'setup-server' do
     mkdir log
     npm install
     cd ..
+    mkdir /var/log/node
     chown -R www:www /var/log/node/
     chown -R www:www divelogger/
   EOH
