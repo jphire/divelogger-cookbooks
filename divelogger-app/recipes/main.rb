@@ -63,7 +63,7 @@ bash 'setup-node' do
     echo "client_host=#{settings['client_host']}" >>.env
     touch start.sh
     echo "#!/bin/bash" >start.sh
-    echo "/bin/bash -c 'cd /srv/www/divelogger ; source /srv/www/divelogger/.env ; /usr/bin/env PORT=#{settings['port']} NODE_PATH=/srv/www/divelogger/node_modules:/srv/www/divelogger /usr/local/bin/node /srv/www/divelogger/server.js 2>>/srv/www/divelogger/log/node.stderr.log 1>>/srv/www/divelogger/log/node.stdout.log'" >>start.sh
+    echo "/bin/bash -c 'cd /srv/www/divelogger ; source /srv/www/divelogger/.env ; /usr/bin/env PORT=#{settings['port']} NODE_PATH=/srv/www/divelogger/node_modules:/srv/www/divelogger /usr/local/bin/node /srv/www/divelogger/server.js 2>>/var/log/node/node.stderr.log 1>>/var/log/node/node.stdout.log'" >>start.sh
     chmod +x start.sh
   EOH
 end
