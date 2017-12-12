@@ -2,7 +2,7 @@ extend Helper::Utils
 
 def_settings = node.default['divelogger']['settings']
 ext_settings = node['divelogger']['settings']
-req_settings = ['cors', 'port', 'username', 'region', 'https', 'client_host']
+req_settings = ['cors', 'port', 'username', 'region', 'https', 'client_host', 'client_port']
 
 valid_envs = ['development', 'staging', 'test', 'production']
 
