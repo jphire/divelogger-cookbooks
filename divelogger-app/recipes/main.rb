@@ -63,6 +63,7 @@ bash 'setup-node' do
     echo "cors=#{settings['cors']}" >>.env
     echo "secretToken=#{settings['secretToken']}" >>.env
     echo "client_host=#{settings['client_host']}" >>.env
+    echo "client_port=#{settings['client_port']}" >>.env
     touch start.sh
     echo "#!/bin/bash" >start.sh
     echo "/bin/bash -c 'cd /srv/www/divelogger ; source /srv/www/divelogger/.env ; /usr/bin/env PORT=#{settings['port']} NODE_PATH=/srv/www/divelogger/node_modules:/srv/www/divelogger /usr/local/bin/node /srv/www/divelogger/server.js 2>>/var/log/node/node.stderr.log 1>>/var/log/node/node.stdout.log'" >>start.sh
